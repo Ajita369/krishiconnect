@@ -121,8 +121,7 @@
                                               <textarea class="form-control" rows="3" placeholder="Message" id="message"></textarea>
                                           </div>
                                       </div>
-                                      <div id="thankYouMsg" style="display: none;">
-                                        Thank you! We will connect soon.
+                                      <div id="thankYouMsg">
                                     </div>
                                       <div class="col-lg-12 text-right">
                                           <button type="submit" class="btn btn-lg mb-5 contact-btn">Send</button>
@@ -349,19 +348,28 @@
     <!-- Copyright -->
   </footer>
   <script>
-    document.getElementById('contactForm').addEventListener('submit', function(event) {
-      event.preventDefault();
-      const fullName = document.getElementById('full').value;
-      const email = document.getElementById('email').value;
-      const message = document.getElementById('message').value;
-      const thankYouMsg = document.getElementById('thankYouMsg');
-      if (fullName && email && message) {
-          thankYouMsg.style.display = 'block';
-          this.reset();
-      } else {
-          alert('Please fill in all fields.');
-      }
-  });
+
+  document.getElementById('contactForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const fullName = document.getElementById('full').value;
+    const email = document.getElementById('email').value;
+    const message = document.getElementById('message').value;
+    const thankYouMsg = document.getElementById('thankYouMsg');
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
+
+    if (fullName && email && message) {
+        if (emailPattern.test(email)) {
+            thankYouMsg.textContent = 'Thank you! We will connect soon.';
+            this.reset();
+        } else {
+            thankYouMsg.textContent = 'Please enter a valid email address.';
+        }
+    } else {
+        thankYouMsg.textContent = 'Please fill in all fields';
+    }
+});
+
+
   </script>
 </body>
 </html>
